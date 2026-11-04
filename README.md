@@ -91,6 +91,32 @@ end
 
 **Important:** LÖVE's positional audio requires mono (one-channel) audio files. The demo WAVs are mono.
 
+## More features
+
+- **Stereo files just work.** `static` sounds that are not mono are mixed down to mono automatically (`downmix = false` turns this off). `stream` sounds still need to be mono.
+- **One-shot sounds.** `som3d.playAt(path, x, y, z, options)` plays a sound once at a position and cleans itself up when it ends (shots, footsteps, explosions). The file is loaded only the first time.
+- **Follow a model.** `emitter:follow(model, offsetX, offsetY, offsetZ)` (or `follow = model` in the options) moves the sound with a g3d model, Doppler included. `som3d.update(camera, dt)` does the work, `follow(nil)` stops it.
+- **Doppler safety.** Speeds are capped by `som3d.maxSpeed` (200 by default, also settable in `som3d.init`) so teleports don't cause pitch spikes. Call `som3d.resetListener()` after teleporting the camera.
+- **Master volume and stop all.** `som3d.setMasterVolume(v)`, `som3d.getMasterVolume()` and `som3d.stopAll()`.
+- **Extras.** `emitter:resume()`, `emitter:getPosition()`, `emitter:getVolume()`. Volumes are always clamped to 0-1, including in the creation options.
+- **Portuguese names**, like g3d-glb: `som3d.novo`, `som3d.tocarEm`, `emitter:tocar()`, `pausar()`, `continuar()`, `parar()`, `seguir()`, `volume()`, `tom()`, `repetir()`, `destruir()` and more (see the end of `som3d.lua`).
+
+```lua
+local som3d = require "som3d"
+som3d.init({ maxSpeed = 150 })
+
+local engine = som3d.new("assets/engine.wav", { loop = true, follow = car })
+engine:play()
+
+function love.update(dt)
+    som3d.update(g3d.camera, dt)   -- listener + followers + cleanup
+end
+
+function shoot(x, y, z)
+    som3d.playAt("assets/shot.wav", x, y, z, { volume = 0.8, maxDistance = 80 })
+end
+```
+
 ## Credits and licenses
 
 - **Demo models, textures and WAV test sounds:** created for this project by `generico_cube`.
