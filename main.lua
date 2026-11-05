@@ -2,7 +2,7 @@
 -- Modelos OBJ e assets de demonstração: // feito por generico_cube
 
 local g3d = require("g3d")
-local som3d = require("som3d")
+local som3d = require "g3d-cube-tools.som3d"
 
 local camera = g3d.camera
 local fonteAzul
@@ -91,22 +91,22 @@ function love.load()
 
     -- Modelos 3D originais do projeto, todos com autoria nos próprios OBJ.
     chao = g3d.newModel(
-        "assets/models/chao.obj",
-        "assets/textures/chao_grid.png"
+        "g3d-cube-tools/som3d/assets/models/chao.obj",
+        "g3d-cube-tools/som3d/assets/textures/chao_grid.png"
     )
     chao.texture:setWrap("repeat", "repeat")
 
     bolaAzul = g3d.newModel(
-        "assets/models/bola_azul.obj",
-        "assets/textures/bola_azul.png",
+        "g3d-cube-tools/som3d/assets/models/bola_azul.obj",
+        "g3d-cube-tools/som3d/assets/textures/bola_azul.png",
         azulPos,
         nil,
         0.92
     )
 
     bolaLaranja = g3d.newModel(
-        "assets/models/bola_laranja.obj",
-        "assets/textures/bola_laranja.png",
+        "g3d-cube-tools/som3d/assets/models/bola_laranja.obj",
+        "g3d-cube-tools/som3d/assets/textures/bola_laranja.png",
         laranjaPos,
         nil,
         0.92
@@ -121,7 +121,7 @@ function love.load()
         dopplerScale = 1,
     })
 
-    fonteAzul = som3d.new("assets/audio/ping_azul_mono.wav", {
+    fonteAzul = som3d.new("g3d-cube-tools/som3d/assets/audio/ping_azul_mono.wav", {
         type = "static",
         position = azulPos,
         volume = 0.9,
@@ -132,7 +132,7 @@ function love.load()
         airAbsorption = 0.25,
     })
 
-    fonteLaranja = som3d.new("assets/audio/ping_laranja_mono.wav", {
+    fonteLaranja = som3d.new("g3d-cube-tools/som3d/assets/audio/ping_laranja_mono.wav", {
         type = "static",
         position = laranjaPos,
         volume = 0.9,

@@ -1,6 +1,6 @@
 # som3d — LÖVE + g3d Spatial Audio Demo
 
-**A real 3D test project for `som3d.lua` using the actual g3d camera and models.**
+**A real 3D test project for `som3d` using the actual g3d camera and models.**
 
 > 3D demonstration models, textures, and test audio created for this project by **generico_cube**.
 
@@ -13,12 +13,12 @@
 
 ## What is included
 
-- `som3d.lua` — spatial audio helper module.
+- `g3d-cube-tools/som3d/init.lua` — spatial audio helper module.
 - `g3d/` — the actual g3d library source included in this demo.
 - `main.lua` — real 3D scene, using `require("g3d")`, `g3d.newModel()` and `g3d.camera`.
-- `assets/models/` — two original sphere models and a ground model.
-- `assets/audio/` — two original mono test sounds.
-- `assets/textures/` — textures generated for the demo.
+- `g3d-cube-tools/som3d/assets/models/` — two original sphere models and a ground model.
+- `g3d-cube-tools/som3d/assets/audio/` — two original mono test sounds.
+- `g3d-cube-tools/som3d/assets/textures/` — textures generated for the demo.
 
 The `.obj` files contain the comment `# // feito por generico_cube` in their headers.
 
@@ -39,11 +39,11 @@ The `.obj` files contain the comment `# // feito por generico_cube` in their hea
 
 ## How g3d is connected to som3d
 
-`som3d.lua` does not secretly load g3d. The game imports both modules and passes the real camera explicitly:
+`som3d` does not secretly load g3d. The game imports both modules and passes the real camera explicitly:
 
 ```lua
 local g3d = require("g3d")
-local som3d = require("som3d")
+local som3d = require "g3d-cube-tools.som3d"
 
 function love.update(dt)
     -- Update the 3D camera first.
@@ -58,11 +58,11 @@ Sound sources and g3d models use the same XYZ coordinates. The orange sphere and
 
 ## Use som3d in another project
 
-Copy `som3d.lua` into your project and import it with `require("som3d")`. Your project must also include g3d if you want to pass `g3d.camera` as the listener.
+Copy the `g3d-cube-tools/som3d/` folder into your project and import it with `require "g3d-cube-tools.som3d"`. Your project must also include g3d if you want to pass `g3d.camera` as the listener.
 
 ```lua
 local g3d = require("g3d")
-local som3d = require("som3d")
+local som3d = require "g3d-cube-tools.som3d"
 local sound
 
 function love.load()
@@ -99,10 +99,10 @@ end
 - **Doppler safety.** Speeds are capped by `som3d.maxSpeed` (200 by default, also settable in `som3d.init`) so teleports don't cause pitch spikes. Call `som3d.resetListener()` after teleporting the camera.
 - **Master volume and stop all.** `som3d.setMasterVolume(v)`, `som3d.getMasterVolume()` and `som3d.stopAll()`.
 - **Extras.** `emitter:resume()`, `emitter:getPosition()`, `emitter:getVolume()`. Volumes are always clamped to 0-1, including in the creation options.
-- **Portuguese names**, like g3d-glb: `som3d.novo`, `som3d.tocarEm`, `emitter:tocar()`, `pausar()`, `continuar()`, `parar()`, `seguir()`, `volume()`, `tom()`, `repetir()`, `destruir()` and more (see the end of `som3d.lua`).
+- **Portuguese names**, like g3d-glb: `som3d.novo`, `som3d.tocarEm`, `emitter:tocar()`, `pausar()`, `continuar()`, `parar()`, `seguir()`, `volume()`, `tom()`, `repetir()`, `destruir()` and more (see the end of `som3d/init.lua`).
 
 ```lua
-local som3d = require "som3d"
+local som3d = require "g3d-cube-tools.som3d"
 som3d.init({ maxSpeed = 150 })
 
 local engine = som3d.new("assets/engine.wav", { loop = true, follow = car })
